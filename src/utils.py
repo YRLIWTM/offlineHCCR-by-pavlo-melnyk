@@ -33,6 +33,10 @@ from keras.preprocessing.image import ImageDataGenerator
 
 from keras.datasets import mnist, fashion_mnist, cifar10, cifar100
 
+## 處理 module 'keras.preprocessing.image' has no attribute 'load_img'
+import keras.utils as imagee
+##
+
 
 
 IMG_SHAPE = (96, 96)
@@ -159,7 +163,7 @@ def preprocess_input(img, show_img=False):
 def load_data(image_path=None):
 	print('\nLoading the data.....................................')
 	if image_path and image_path[-4:].lower() in ['.png', '.jpg', 'jpeg']:
-		img = np.array(image.load_img(image_path))
+		img = np.array(imagee.load_img(image_path))
 		prepr_img = preprocess_input(img, show_img=False)
 		print()
 
@@ -175,7 +179,7 @@ def load_data(image_path=None):
 		prepr_imgs = np.empty((n_files, 96, 96, 1))
 		imgs = []
 		for i, img_filepath in enumerate(files):
-			img = np.array(image.load_img(img_filepath))
+			img = np.array(imagee.load_img(img_filepath))
 			imgs.append(img)
 			prepr_img = preprocess_input(img, show_img=False)
 			prepr_imgs[i] = prepr_img	
