@@ -37,6 +37,11 @@ from keras.datasets import mnist, fashion_mnist, cifar10, cifar100
 import keras.utils as imagee
 ##
 
+## 處理 module 'scipy.misc' has no attribute 'imresize'
+from PIL import Image
+# numpy.array(Image.fromarray(arr).resize())
+##
+
 
 
 IMG_SHAPE = (96, 96)
@@ -101,7 +106,8 @@ def normalize_bitmap(bitmap):
 	bitmap = np.lib.pad(bitmap, pad_dims, mode='constant', constant_values=255)
 
 	# rescale and add empty border
-	bitmap = sp.misc.imresize(bitmap, (96 - 4*2, 96 - 4*2))
+	###bitmap = sp.misc.imresize(bitmap, (96 - 4*2, 96 - 4*2))
+	bitmap = np.array(Image.fromarray(bitmap).resize((96 - 4*2, 96 - 4*2)))
 	bitmap = np.lib.pad(bitmap, ((4, 4), (4, 4)), mode='constant', constant_values=255)
 	assert bitmap.shape == IMG_SHAPE
 

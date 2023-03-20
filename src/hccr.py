@@ -14,6 +14,11 @@ from utils import (
 	preprocess_input
 	)
 
+## 處理 module 'scipy.misc' has no attribute 'imresize'
+from PIL import Image
+# numpy.array(Image.fromarray(arr).resize())
+##
+
 
 class HCCR(object):
 	def __init__(
@@ -73,7 +78,8 @@ class HCCR(object):
 				heat_map = fmaps[i].dot(w) #  (6 x 6)
 				
 				# resize and save the heat_map:
-				heat_map = sp.misc.imresize(heat_map, size=(96, 96), interp='bilinear', mode='F')
+				###heat_map = sp.misc.imresize(heat_map, size=(96, 96), interp='bilinear', mode='F')
+				heat_map = np.array(Image.fromarray(heat_map).resize((96, 96)))
 				heat_maps.append(heat_map)
 						
 		
